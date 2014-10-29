@@ -44,7 +44,7 @@ def recursive(machine, hour, total):
     elif machine == 'move_to_A':
         return recursive('A', hour + 1, total + A_schedule[hour])
     # if the state of the machine is the first at B
-    elif machine == 'move_to_B':
+    elif machine == 'move_to_B':  
         return recursive('B', hour + 1, total + B_schedule[hour])
     # the what the fuck why is it here state
     else:
