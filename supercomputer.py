@@ -7,8 +7,14 @@ def recursive(machine, hour, total):
     # the base case, when the length of the list is equal to the hour
     elif len(A_schedule) == hour + 1:
         if machine == 'A':
+            if total + A_schedule[hour] > totals[hour]:
+                movements[hour] = 'A'
+                totals[hour] = total + A_schedule[hour]
             return total + A_schedule[hour]
         elif machine == 'B':
+            if total + B_schedule[hour] > totals[hour]:
+                movements[hour] = 'B'
+                totals[hour] = total + B_schedule[hour]
             return total + B_schedule[hour]
         else:
             return 0
@@ -16,11 +22,23 @@ def recursive(machine, hour, total):
     elif machine == 'A':
         do_A = recursive('A', hour + 1, A_schedule[hour] + total)
         move_to_B = recursive('move_to_B', hour + 1, total)
+        if do_A > totals[hour]:
+            movements[hour] = 'A'
+            totals[hour] = do_A
+        if move_to_B > totals[hour]:
+            movements[hour] = 'B'
+            totals[hour] = move_to_B
         return max(do_A,move_to_B)
     # if the state of the machine is currently B
     elif machine == 'B':
         do_B = recursive('B', hour + 1, total + B_schedule[hour])
         move_to_A = recursive('move_to_A', hour + 1, total)
+        if do_B > totals[hour]:
+            movements[hour] = 'B'
+            totals[hour] = do_B
+        if move_to_A > totals[hour]:
+            movements[hour] = 'A'
+            totals[hour] = move_to_A
         return max(do_B, move_to_A)
     # if the state of the machine is the first at A
     elif machine == 'move_to_A':
@@ -38,18 +56,22 @@ def iterative(A_schedule, B_schedule):
 if __name__ == "__main__":
     print "---Should print 28---"
     movements = []
+    totals = []
     A_schedule = [10, 1, 5, 10]
     B_schedule = [5, 2, 3, 15]
-    # for i in range(len(A_schedule)):
-    #     movements.extend('i')
-    #     movements[i] = i
+    for i in range(len(A_schedule)):
+        movements.extend('i')
+        movements[i] = 0
+    totals = movements[:]
     print recursive('', 0, 0)
-    # print movements
-    print "---Should print 11---"
-    A_schedule = [1, 2, 3, 4]
-    B_schedule = [4, 3, 2, 1]
-    print recursive('', 0, 0)
-    print "---Should print 17---"
-    A_schedule = [1, 2, 3, 10]
-    B_schedule = [4, 3, 8, 1]
-    print recursive('', 0, 0)
+    recursive('', 0, 0)
+    print movements
+    print totals
+    # print "---Should print 11---"
+    # A_schedule = [1, 2, 3, 4]
+    # B_schedule = [4, 3, 2, 1]
+    # print recursive('', 0, 0)
+    # print "---Should print 17---"
+    # A_schedule = [1, 2, 3, 10]
+    # B_schedule = [4, 3, 8, 1]
+    # print recursive('', 0, 0)
