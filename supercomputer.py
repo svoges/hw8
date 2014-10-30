@@ -38,8 +38,8 @@ def recursive(machine, hour):
 def iterative(A_schedule, B_schedule):
     dp = []
     for i = n...1:
-        dp[i][A] = get(A, i) + max(get(A, i + 1), get(A, i + 2))
-        dp[i][B] = get(B, i) +  max(get(B, i + 1), get(B, i + 2))
+        dp[i][A] = get(A, i) + max(get(A, i + 1), get(B, i + 2))
+        dp[i][B] = get(B, i) +  max(get(B, i + 1), get(A, i + 2))
     return max(get(A, 1), get(B, 1))
 
 def get(state, hour):
