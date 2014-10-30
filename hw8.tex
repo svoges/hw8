@@ -47,17 +47,27 @@ def algorithm(A[1...n], B[1...m]): \\
 \indent else: return False
 
 \noindent
-\textbf{Proof of correctness.}
-YOUR ANSWER GOES HERE
+\textbf{Proof of correctness.} \\
+\textit{Loop Invariant:} At the beginning of every loop, the only letters in $A[1...n]$ that remain are those that have not been hit yet in order. \\
+\textit{Base Case:} Before the first iteration of the loop, no characters in $A[1...n]$ have been hit yet.  Therefore, all the characters remain, and our loop invariant holds true. \\
+\textit{Inductive Hypothesis:} Before the $i^{th}$ iteration of the loop, only the letters that haven't appeared in order from $A[1..i-1]$ remain in $A$. \\
+\textit{Inductive Step:} To prove our algorithm true, we need to examine our algorithm at iteration $i + 1$.  We know that at the beginning of the $i^{th}$ loop, only the letters that haven't appeared in order from $A[1..i-1]$ remain in $A$ appear due to the inductive hypothesis.  Let the remaining string of $A$ be $A[k...n]$ such that $1 \leq k \leq n$.  \\
+Case 1: $A[k]$ is equal to the next character in $B$\\
+\indent In this case, $A[k]$ is added to the set of characters we've seen, and is thus deleted from A.  Then, only the characters which have been seen in order in $A$ remain, and our loop invariant holds true. \\
+Case 2: $A[k]$ is not equal to the next character in $B$\\
+\indent In this case, $A[k]$ is not added to the set of characters we've seen, and remains in $A$.  $A$ is still composed only of the characters we've seen in order so far, and our loop invariant holds true.\\
+Thus, by proof by cases, we see that our loop invariant holds true.
+
+\noindent By the loop invariant, only the characters from $A$ that haven't been yet in $B$ in order remain in $A$.  Therefore, at the end of the $i^{th}$ iteration, if all the characters in $A$ have been seen, $A$ will be empty and we will return True.  If not all the characters in $A$ have been seen, then we know that there does not exist a subsequence of $A$ in $B$, and we return False since $A$ will not be empty.
 
 \noindent
 \textbf{Running time.}
-$O(m + n)$
+$O(m)$
 
 
 \noindent
 \textbf{Justification of running time.}
-You complete m iterations through B, complete n searches through A.  Since each search through A is only complete once during an iteration of B, our running time is $O(m + n)$. 
+You complete m iterations through B, so our running time is $O(m)$. 
 
 \newpage
 \section*{2. Another scheduling problem}
