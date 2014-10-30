@@ -72,27 +72,42 @@ You complete m iterations through B, so our running time is $O(m)$.
 \newpage
 \section*{2. Another scheduling problem}
 \noindent
-\textbf{Main idea.}
-YOUR ANSWER GOES HERE
+\textbf{Main idea.}\\
+The main idea of the code is to start from the very last hour, and keep track of the maximum times for picking a movement, A's schedule, or B's schedule at every hour.  Thus, each problem only needs to worry about the maximum values of the two subproblems to its right.
 
 
 \noindent
-\textbf{Pseudocode.}
-YOUR ANSWER GOES HERE
+\textbf{Pseudocode.} \\
+def iterative(A, B): \\
+\indent dp = [] \\
+\indent dp[n][A] = get(A, n) \\
+\indent dp[n - 1][A] = get(A, n -1) + dp[n][A] \\
+\indent dp[n][B] = get(B, n) \\
+\indent dp[n - 1][B] = get(B, n - 1) + dp[n][B] \\
+\indent for i = n - 2...1: \\
+\indent\indent dp[i][A] = get(A, i) + max(get(A, i + 1), get (B, i + 2)) \\
+\indent\indent di[i][B] = get(B, i) + max(get(B, i + 1), get(A, i + 2)) \\
+\indent return max(get(A, 1), get(B, 1)) \\
 
+\noindent def get(state, hour): \\
+\indent return maximum power at that state if in range, else return 0 \\
 \noindent
-\textbf{Proof of correctness.}
-YOUR ANSWER GOES HERE
+\textbf{Proof of correctness.}\\
+\textit{Loop Invariant:} At the beginning of every loop i, the elements in dp[i + 1...n] hold the maximum values of picking either $A$, $B$, or moving at that hour.  \\
+\textit{Base Case:} Before the first iteration of the loop, the only values entered in the array dp are from the last two hours.  Since no case with only two hours can be optimal, the maximum values hold only straight choices in either A or B, which are already filled in inside the array.  Therefore, our base case holds. \\
+\textit{Inductive Hypothesis:} Before the $i^{th}$ iteration of the loop, dp[n - i + 1...n] holds the maximum values of A and B at the hour i. \\
+\textit{Inductive Step:} To prove our algorithm true, we need to examine our algorithm at iteration $i + 1$.  We know that at the beginning of the $i^{th}$ loop, dp holds the maximum values of A and B at hours n - i + 1...n due to the inductive hypothesis.  Let $k$ = hour $n - i$.  In our loop, we find the maximum value of picking the next consecutive hour in the same schedule, or skipping the next value and adding the number of seconds in the $k+2^{nd}$ in the other schedule for picking both $A$ and $B$.  Thus, we know that when analyzing hour $k - 1$, dp will hold the maximum values of A and B at hours n - 1...n, and our loop invariant holds true. \\
 
+\noindent If we follow our loop invariant all the way through to hour 1, we will have accumulated the maximum values for picking A or B at each hour in the schedule.  Thus, we just need one more iteration in the loop to find the maximum value at hour 1 for picking both A and B.
 
 \noindent
 \textbf{Running time.}
-YOUR ANSWER GOES HERE
+$O(n)$
 
 
 \noindent
 \textbf{Justification of running time.}
-YOUR ANSWER GOES HERE
+We access the elements in $A$ and $B$ 3 times each per iteration, and we have $n$ iterations, leading to $O(6n) = O(n)$
 
 
 
