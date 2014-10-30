@@ -37,8 +37,14 @@ def recursive(machine, hour):
 
 def iterative(A_schedule, B_schedule):
     hour = len(A_schedule)
+    dp = []
+    for i = n...1:
+        dp[i][A] = max()
 
+    return dp
 
+def get(state, hour):
+    return maximum power at that state
 
 
 if __name__ == "__main__":
@@ -46,11 +52,12 @@ if __name__ == "__main__":
     A_schedule = [10, 1, 5, 10]
     B_schedule = [5, 2, 3, 15]
     print recursive('', 0)
-    print "---Should print 11---"
-    A_schedule = [1, 2, 3, 4]
-    B_schedule = [4, 3, 2, 1]
-    print recursive('', 0)
-    print "---Should print 17---"
-    A_schedule = [1, 2, 3, 10]
-    B_schedule = [4, 3, 8, 1]
-    print recursive('', 0)
+    print iterative(A_schedule, B_schedule)
+    # print "---Should print 11---"
+    # A_schedule = [1, 2, 3, 4]
+    # B_schedule = [4, 3, 2, 1]
+    # print recursive('', 0)
+    # print "---Should print 17---"
+    # A_schedule = [1, 2, 3, 10]
+    # B_schedule = [4, 3, 8, 1]
+    # print recursive('', 0)
