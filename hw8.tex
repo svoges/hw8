@@ -154,12 +154,18 @@ The runtime of Floyd-Warshall is the dominating factor in this algorithm, which 
 \section*{4. Optimal binary search trees}
 \noindent
 \textbf{Main idea.}
-YOUR ANSWER GOES HERE
+The idea I use is very similar to Huffman encoding- I recursively pick the word with the highest frequency, divide the remaining words into a left\_dictionary and right\_dictionary based on alphabetization, and pick a highest frequency from those to put on the corresponding left and right nodes until the dictionary given is empty.
 
 
 \noindent
-\textbf{Pseudocode.}
-YOUR ANSWER GOES HERE
+\textbf{Pseudocode.}\\
+def algorithm(frequency\_list): \\
+\indent root = word with highest frequency \\
+\indent left\_dictionary = words before root alphabetically \\
+\indent right\_dictionary = words after root alphabetically \\
+\indent root.left\_child = algorithm(left\_dictionary) \\
+\indent root.right\_child = algorithm(right\_dictionary) \\
+\indent return root
 
 \noindent
 \textbf{Proof of correctness.}
