@@ -15,5 +15,5 @@ def algorithm(G, l, k):
         for all j = 0...i:
             shortest_path[i][j] = 0
         for j = i + 1...k:
-            shortest_path[i][j] = l[i - 1][i] + min(shortest_path[i - 1][j -1] + shortest_path[i - 1][j])
+            shortest_path[i][j] = min(l[i - 1][i] + shortest_path[i - 1][j -1], shortest_path[i - 1][j])
     return minimum != 0 at column k in shortest_path

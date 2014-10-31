@@ -115,26 +115,39 @@ We access the elements in $A$ and $B$ 3 times each per iteration, and we have $n
 \section*{3. Park Tours}
 \noindent
 \textbf{Main idea.}
-The main idea is to 
+The main idea is to run the Floyd-Warshall algorithm to find the shortest distance from every vertex to every other vertex, then to find the shortest path within that array that contains k attractions in order.
 
 
 \noindent
-\textbf{Pseudocode.}
-YOUR ANSWER GOES HERE
+\textbf{Pseudocode.}\\
+def algorithm(G, l, k): \\
+\indent dist = [m][m] \\
+\indent fill dist with values from Floyd-Warshall \\
+\indent shortest\_path = [m-k][k] \\
+\indent for i = 0 ... m \\
+\indent\indent for j = 0 ... k \\
+\indent\indent\indent if j $\leq$ i shortest\_path[i][j] = 0 \\
+\indent\indent\indent else:\\
+\indent\indent\indent\indent shortest\_path[i][j] = min($l$[i - 1][i] + shortest\_path[i - 1][j - 1], shortest\_path[i - 1][j]) \\
+\indent return shortest\_path[m-k][k]
 
 \noindent
 \textbf{Proof of correctness.}
-YOUR ANSWER GOES HERE
+In this case, our recurrence relation is f(i, j) = min($l$(i - 1, j) + f(i - 1, j - 1), f(i - 1, j)), where shortest\_path[i][j] is the minimum distance needed to visit $j$ vertices ending at vertex $i$.  Let's look at each recursive call individually to examine why the minimum of those two will give us our shortest amount of distance.\\
+\textit{f(i - 1, j - 1)}: This call will give us the minimum distance needed to visit 1 less attraction at the previous vertex i - 1.  Thus, adding the minimum path from i - 1 to i will give us the distance needed to visit the amount of attractions needed.  This handles the case for visiting exactly k attractions in order. \\
+\textit{f(i - 1, j)}: This call will give us the minimum distance already calculated for visiting k vertices. \\
+Thus, comparing the two calls above will give us the minimum distance needed to visit k attractions in order, since we calculate distances starting from the very first attraction.
+
 
 
 \noindent
 \textbf{Running time.}
-YOUR ANSWER GOES HERE
+$O(m^3)$
 
 
 \noindent
 \textbf{Justification of running time.}
-YOUR ANSWER GOES HERE
+The runtime of Floyd-Warshall is the dominating factor in this algorithm, which is $O(|V|^3) = O(m^3)$
 
 
 \newpage
